@@ -1,4 +1,3 @@
-import Swift
 import Darwin
 
 struct Vector {

@@ -6,7 +6,7 @@
 //  Copyright © 2016 Letanyan Arumugam. All rights reserved.
 //
 
-import Foundation
+import Darwin
 
 enum Pattern {
 	case regex(Regex)
@@ -72,7 +72,12 @@ extension Commander {
 		var result = text
 		
 		var i = 0
-		var shownHeading = false
+		if showTrace { print("""
+		----------------------Execution Trace----------------------
+		\(text)
+		-----------------------------------------------------------
+		""")}
+		
 		while i < commands.count {
 			let c = commands[i]
 			if let change = c.execute(on: result, with: self) {
@@ -80,9 +85,8 @@ extension Commander {
 					return String(change[change.index(change.startIndex, offsetBy: 7)...])
 				}
 				result = change
-				if showTrace && !shownHeading { print("----------------------Execution Trace:\n\(text)")}
+				
 				if showTrace { print(result) }
-				shownHeading = true
 				if recursive {
 					i = -1
 				}

@@ -6,7 +6,7 @@
 //  Copyright © 2016 Letanyan Arumugam. All rights reserved.
 //
 
-import Foundation
+import Darwin
 
 enum ExpressionError: String {
 	case prefix = "{Expression Error: Prefix Function}"
@@ -162,7 +162,7 @@ struct ExpressionCalculator: Commander {
 			let f = first.captures[0].stringValue
 			var e = first.captures[1].stringValue
 			e = commander.execute(on: e)
-			let d = (e as NSString).doubleValue
+			let d = Double(e) ?? 0
 			
 			switch f {
 			case "sqrt": return sqrt(d).description
@@ -205,15 +205,15 @@ struct ExpressionCalculator: Commander {
 			var e2 = first.captures[2].stringValue
 			e1 = commander.execute(on: e1)
 			e2 = commander.execute(on: e2)
-			let d1 = (e1 as NSString).doubleValue
-			let d2 = (e2 as NSString).doubleValue
+			let d1 = Double(e1) ?? 0
+			let d2 = Double(e2) ?? 0
 			
 			switch f {
 			case "power": return pow(d1, d2).description
 			case "log": return "\(log(d1) / log(d2))"
 			case "sumproduct":
-				let e1s = e1.components(separatedBy: ",").map { ($0 as NSString).doubleValue }
-				let e2s = e2.components(separatedBy: ",").map { ($0 as NSString).doubleValue }
+				let e1s = e1.components(separatedBy: ",").map { Double($0) ?? 0 }
+				let e2s = e2.components(separatedBy: ",").map { Double($0) ?? 0 }
 				var result: Double = 0
 				if e1s.count == e2s.count {
 					for (a, b) in zip(e1s, e2s) {
@@ -504,7 +504,7 @@ struct ExpressionCalculator: Commander {
 			let f = first.captures[0].stringValue
 			var e = first.captures[1].stringValue
 			e = commander.execute(on: e)
-			let d = (e as NSString).doubleValue
+			let d = Double(e)
 			
 			switch f {
 			case "silent":

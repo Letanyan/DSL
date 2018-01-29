@@ -41,7 +41,15 @@ class DSLTests: XCTestCase {
 			}
 		} while input != "bye"
     }
-
+	
+	func testDrinkMixer() {
+		var bartender = DrinkMixer()
+		bartender.showTrace = true
+		
+		_ = bartender.execute(on: "double vodka ice and triple gin with lemonade")
+		
+		print(bartender.please)
+	}
 
     static var allTests = [
         ("testExample", testExample),

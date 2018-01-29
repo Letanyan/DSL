@@ -6,7 +6,7 @@
 //  Copyright © 2016 Letanyan Arumugam. All rights reserved.
 //
 
-import Foundation
+import Swift
 
 struct std {
 	static let s = "\\s*"
